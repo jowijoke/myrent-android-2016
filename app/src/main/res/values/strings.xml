@@ -6,4 +6,5 @@
     <string name="location">Location</string>
     <string name="status">Status</string>
     <string name="registration_date" />
+    <string name="isrented">Rented?</string>
 </resources>

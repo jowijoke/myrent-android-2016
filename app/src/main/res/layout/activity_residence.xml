@@ -30,4 +30,11 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"/>
 
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/isrented"
+        android:id="@+id/isrented"
+        android:checked="false" />
+
 </LinearLayout>
