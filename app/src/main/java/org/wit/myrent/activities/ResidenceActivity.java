@@ -11,6 +11,8 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 
 import org.wit.myrent.R;
+import org.wit.myrent.app.MyRentApp;
+import org.wit.myrent.models.Portfolio;
 import org.wit.myrent.models.Residence;
 
 
@@ -20,6 +22,7 @@ public class ResidenceActivity extends Activity implements TextWatcher,CompoundB
     private Residence residence;
     private CheckBox rented;
     private Button dateButton;
+    private Portfolio portfolio;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +38,28 @@ public class ResidenceActivity extends Activity implements TextWatcher,CompoundB
         dateButton  = (Button)   findViewById(R.id.registration_date);
         dateButton .setEnabled(false);
         rented      = (CheckBox) findViewById(R.id.isrented);
+
+        MyRentApp app = (MyRentApp) getApplication();
+        portfolio = app.portfolio;
+
+        Long resId = (Long) getIntent().getExtras().getSerializable("RESIDENCE_ID");
+        residence = portfolio.getResidence(resId);
+        if (residence != null)
+        {
+            updateControls(residence);
+        }
     }
+
+
+
+    public void updateControls(Residence residence)
+    {
+        geolocation.setText(residence.geolocation);
+        rented.setChecked(residence.rented);
+        dateButton.setText(residence.getDateString());
+    }
+
+
 
     @Override
     public void beforeTextChanged(CharSequence c, int start, int count, int after) {
