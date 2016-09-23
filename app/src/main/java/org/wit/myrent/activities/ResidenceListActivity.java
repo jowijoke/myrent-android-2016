@@ -20,14 +20,13 @@ import org.wit.myrent.models.Residence;
 
 import java.util.ArrayList;
 
-public class ResidenceListActivity extends Activity implements AdapterView.OnItemClickListener{
+public class ResidenceListActivity extends Activity implements AdapterView.OnItemClickListener {
     private ListView listView;
     private Portfolio portfolio;
     private ResidenceAdapter adapter;
 
     @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTitle(R.string.app_name);
         setContentView(R.layout.activity_residence_list);
@@ -43,13 +42,18 @@ public class ResidenceListActivity extends Activity implements AdapterView.OnIte
         listView.setOnItemClickListener(this);
     }
 
-
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Residence residence = adapter.getItem(position);
         Intent intent = new Intent(this, ResidenceActivity.class);
         intent.putExtra("RESIDENCE_ID", residence.id);
         startActivity(intent);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        adapter.notifyDataSetChanged();
     }
 }
 class ResidenceAdapter extends ArrayAdapter<Residence> {
