@@ -9,7 +9,7 @@
         android:id="@+id/residence_list_item_isrented"
         android:gravity="center"
         android:layout_alignParentRight="true"
-        android:enabled="true"
+        android:enabled="false"
         android:focusable="false"
         android:padding="4dp"
         />
