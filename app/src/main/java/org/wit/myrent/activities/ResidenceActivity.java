@@ -1,7 +1,7 @@
 package org.wit.myrent.activities;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -16,7 +16,7 @@ import org.wit.myrent.models.Portfolio;
 import org.wit.myrent.models.Residence;
 
 
-public class ResidenceActivity extends Activity implements TextWatcher,CompoundButton.OnCheckedChangeListener {
+public class ResidenceActivity extends AppCompatActivity implements TextWatcher,CompoundButton.OnCheckedChangeListener {
 
     private EditText  geolocation;
     private Residence residence;

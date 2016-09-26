@@ -22,6 +22,7 @@
         android:layout_toLeftOf="@+id/residence_list_item_isrented"
         android:paddingLeft="4dp"
         android:paddingRight="4dp"
+
         />
 
     <TextView
