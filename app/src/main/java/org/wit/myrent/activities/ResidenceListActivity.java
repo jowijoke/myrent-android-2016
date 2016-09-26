@@ -1,12 +1,12 @@
 package org.wit.myrent.activities;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -21,6 +21,9 @@ import org.wit.myrent.models.Portfolio;
 import org.wit.myrent.models.Residence;
 
 import java.util.ArrayList;
+
+import static org.wit.android.helpers.IntentHelper.startActivityWithData;
+import static org.wit.android.helpers.IntentHelper.startActivityWithDataForResult;
 
 public class ResidenceListActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
     private ListView listView;
@@ -53,11 +56,24 @@ public class ResidenceListActivity extends AppCompatActivity implements AdapterV
     }
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch (item.getItemId())
+        {
+            case R.id.menu_item_new_residence: Residence residence = new Residence();
+                portfolio.addResidence(residence);
+                startActivityWithDataForResult(this, ResidenceActivity.class, "RESIDENCE_ID", residence.id, 0);
+                return true;
+
+            default: return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Residence residence = adapter.getItem(position);
-        Intent intent = new Intent(this, ResidenceActivity.class);
-        intent.putExtra("RESIDENCE_ID", residence.id);
-        startActivity(intent);
+
+        startActivityWithData(this, ResidenceActivity.class, "RESIDENCE_ID", residence.id);
     }
 
     @Override
