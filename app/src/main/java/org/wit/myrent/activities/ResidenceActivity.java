@@ -1,6 +1,7 @@
 package org.wit.myrent.activities;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
@@ -23,7 +24,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+import static org.wit.android.helpers.ContactHelper.getContact;
 import static org.wit.android.helpers.IntentHelper.navigateUp;
+import static org.wit.android.helpers.IntentHelper.selectContact;
 
 
 public class ResidenceActivity extends AppCompatActivity implements TextWatcher,CompoundButton.OnCheckedChangeListener, View.OnClickListener,DatePickerDialog.OnDateSetListener {
@@ -33,6 +36,8 @@ public class ResidenceActivity extends AppCompatActivity implements TextWatcher,
     private CheckBox rented;
     private Button dateButton;
     private Portfolio portfolio;
+    private static final int REQUEST_CONTACT = 1;
+    private Button tenantButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +54,8 @@ public class ResidenceActivity extends AppCompatActivity implements TextWatcher,
         dateButton  = (Button)   findViewById(R.id.registration_date);
         dateButton  .setOnClickListener(this);
         rented      = (CheckBox) findViewById(R.id.isrented);
+
+        tenantButton = (Button) findViewById(R.id.tenant);
 
         MyRentApp app = (MyRentApp) getApplication();
         portfolio = app.portfolio;
@@ -68,7 +75,9 @@ public class ResidenceActivity extends AppCompatActivity implements TextWatcher,
         geolocation.setText(residence.geolocation);
         rented.setOnCheckedChangeListener(this);
         dateButton.setText(residence.getDateString());
+        tenantButton.setOnClickListener(this);
     }
+
 
 
 
@@ -103,6 +112,9 @@ public class ResidenceActivity extends AppCompatActivity implements TextWatcher,
                 DatePickerDialog dpd = new DatePickerDialog (this, this, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
                 dpd.show();
                 break;
+            case R.id.tenant:
+                selectContact(this, REQUEST_CONTACT);
+                break;
         }
 
     }
@@ -128,6 +140,20 @@ public class ResidenceActivity extends AppCompatActivity implements TextWatcher,
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case REQUEST_CONTACT:
+                String name = "Empty contact list";
+                if (data != null) {
+                    name = getContact(this, data);
+                }
+                residence.tenant = name;
+                tenantButton.setText(name);
+                break;
+        }
     }
 
 }
