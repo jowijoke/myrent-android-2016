@@ -15,6 +15,7 @@ import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 
+import org.wit.android.helpers.ContactHelper;
 import org.wit.myrent.R;
 import org.wit.myrent.app.MyRentApp;
 import org.wit.myrent.models.Portfolio;
@@ -24,7 +25,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-import static org.wit.android.helpers.ContactHelper.getContact;
 import static org.wit.android.helpers.ContactHelper.sendEmail;
 import static org.wit.android.helpers.IntentHelper.navigateUp;
 import static org.wit.android.helpers.IntentHelper.selectContact;
@@ -37,6 +37,7 @@ public class ResidenceActivity extends AppCompatActivity implements TextWatcher,
     private CheckBox rented;
     private Button dateButton;
     private Portfolio portfolio;
+    private String emailAddress = "";
     private static final int REQUEST_CONTACT = 1;
     private Button tenantButton;
     private Button reportButton;
@@ -79,6 +80,7 @@ public class ResidenceActivity extends AppCompatActivity implements TextWatcher,
         rented.setOnCheckedChangeListener(this);
         dateButton.setText(residence.getDateString());
         tenantButton.setOnClickListener(this);
+        reportButton.setOnClickListener(this);
     }
 
 
@@ -119,7 +121,8 @@ public class ResidenceActivity extends AppCompatActivity implements TextWatcher,
                 selectContact(this, REQUEST_CONTACT);
                 break;
             case R.id.residence_reportButton:
-                sendEmail(this, "", getString(R.string.residence_report_subject), residence.getResidenceReport(this));
+                sendEmail(this, emailAddress,
+                        getString(R.string.residence_report_subject), residence.getResidenceReport(this));
                 break;
         }
 
@@ -152,12 +155,10 @@ public class ResidenceActivity extends AppCompatActivity implements TextWatcher,
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
             case REQUEST_CONTACT:
-                String name = "Empty contact list";
-                if (data != null) {
-                    name = getContact(this, data);
-                }
+                String name = ContactHelper.getContact(this, data);
+                emailAddress = ContactHelper.getEmail(this, data);
+                tenantButton.setText(name + " : " + emailAddress);
                 residence.tenant = name;
-                tenantButton.setText(name);
                 break;
         }
     }
