@@ -25,6 +25,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 import static org.wit.android.helpers.ContactHelper.getContact;
+import static org.wit.android.helpers.ContactHelper.sendEmail;
 import static org.wit.android.helpers.IntentHelper.navigateUp;
 import static org.wit.android.helpers.IntentHelper.selectContact;
 
@@ -38,6 +39,7 @@ public class ResidenceActivity extends AppCompatActivity implements TextWatcher,
     private Portfolio portfolio;
     private static final int REQUEST_CONTACT = 1;
     private Button tenantButton;
+    private Button reportButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +58,7 @@ public class ResidenceActivity extends AppCompatActivity implements TextWatcher,
         rented      = (CheckBox) findViewById(R.id.isrented);
 
         tenantButton = (Button) findViewById(R.id.tenant);
+        reportButton = (Button) findViewById(R.id.residence_reportButton);
 
         MyRentApp app = (MyRentApp) getApplication();
         portfolio = app.portfolio;
@@ -114,6 +117,9 @@ public class ResidenceActivity extends AppCompatActivity implements TextWatcher,
                 break;
             case R.id.tenant:
                 selectContact(this, REQUEST_CONTACT);
+                break;
+            case R.id.residence_reportButton:
+                sendEmail(this, "", getString(R.string.residence_report_subject), residence.getResidenceReport(this));
                 break;
         }
 
