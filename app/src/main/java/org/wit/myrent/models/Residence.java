@@ -26,10 +26,24 @@ public class Residence {
 
     public Residence()
     {
+        id = unsignedLong();
         id = new Random().nextLong();
         date = new Date().getTime();
         geolocation = "52.253456,-7.187162";
         tenant = ": none presently";
+    }
+
+    /**
+     * Generate a long greater than zero
+     *
+     * @return Unsigned Long value greater than zero
+     */
+    private Long unsignedLong() {
+        long rndVal = 0;
+        do {
+            rndVal = new Random().nextLong();
+        } while (rndVal <= 0);
+        return rndVal;
     }
 
     public Residence(JSONObject json) throws JSONException {

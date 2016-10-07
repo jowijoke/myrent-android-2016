@@ -7,6 +7,8 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.provider.ContactsContract;
 
+import org.wit.myrent.activities.ResidenceFragment;
+
 /**
  * Created by User on 03/10/2016.
  */
@@ -28,7 +30,7 @@ public class ContactHelper {
         return contact;
     }
 
-    public static String getEmail(Context context, Intent data) {
+    public static String getEmail(ResidenceFragment context, Intent data) {
         String email = "no email";
 
         Uri contactUri = data.getData();
@@ -51,7 +53,7 @@ public class ContactHelper {
         return email;
     }
 
-    public static String getContact(Context context, Intent data) {
+    public static String getContact(ResidenceFragment context, Intent data) {
         String contact = "unable to find contact";
         Uri contactUri = data.getData();
         String[] queryFields = new String[]{ContactsContract.Contacts.DISPLAY_NAME};
