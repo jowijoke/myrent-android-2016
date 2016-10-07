@@ -130,8 +130,8 @@ public class ResidenceFragment extends Fragment implements TextWatcher,
 
         switch (requestCode) {
             case REQUEST_CONTACT:
-                String name = ContactHelper.getContact(this, data);
-                emailAddress = ContactHelper.getEmail(this, data);
+                String name = ContactHelper.getContact(getActivity(), data);
+                emailAddress = ContactHelper.getEmail(getActivity(), data);
                 tenantButton.setText(name + " : " + emailAddress);
                 residence.tenant = name;
                 break;
