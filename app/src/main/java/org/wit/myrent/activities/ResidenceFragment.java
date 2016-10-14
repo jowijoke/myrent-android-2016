@@ -52,7 +52,7 @@ public class ResidenceFragment extends Fragment implements TextWatcher,
     private Residence residence;
     private Portfolio portfolio;
 
-    private String emailAddress = "";
+    private String emailAddress;
 
     MyRentApp app;
 
@@ -61,7 +61,7 @@ public class ResidenceFragment extends Fragment implements TextWatcher,
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 
-        Long resId = (Long) getActivity().getIntent().getSerializableExtra(EXTRA_RESIDENCE_ID);
+        Long resId = (Long) getArguments().getSerializable(EXTRA_RESIDENCE_ID);
 
         app = MyRentApp.getApp();
         portfolio = app.portfolio;
@@ -73,8 +73,8 @@ public class ResidenceFragment extends Fragment implements TextWatcher,
         super.onCreateView(inflater, parent, savedInstanceState);
         View v = inflater.inflate(R.layout.fragment_residence, parent, false);
 
-        ResidenceActivity residenceActivity = (ResidenceActivity) getActivity();
-        residenceActivity.actionBar.setDisplayHomeAsUpEnabled(true);
+        ResidencePagerActivity residencePagerActivity = (ResidencePagerActivity) getActivity();
+        residencePagerActivity.actionBar.setDisplayHomeAsUpEnabled(true);
 
         addListeners(v);
         updateControls(residence);
