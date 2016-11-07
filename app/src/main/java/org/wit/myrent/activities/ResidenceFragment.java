@@ -5,6 +5,7 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -22,6 +23,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 
 import org.wit.android.helpers.ContactHelper;
+import org.wit.android.helpers.IntentHelper;
 import org.wit.myrent.R;
 import org.wit.myrent.app.MyRentApp;
 import org.wit.myrent.models.Portfolio;
@@ -75,6 +77,9 @@ public class ResidenceFragment extends Fragment implements TextWatcher,
 
 //        ResidencePagerActivity residencePagerActivity = (ResidencePagerActivity) getActivity();
 //        residencePagerActivity.actionBar.setDisplayHomeAsUpEnabled(true);
+
+        FloatingActionButton fab = (FloatingActionButton) v.findViewById(R.id.fab);
+        fab.setOnClickListener(this);
 
         addListeners(v);
         updateControls(residence);
@@ -174,6 +179,9 @@ public class ResidenceFragment extends Fragment implements TextWatcher,
                 break;
             case R.id.residence_reportButton:
                 sendEmail(getActivity(), "emailAddress", getString(R.string.residence_report_subject), residence.getResidenceReport(getActivity()));
+                break;
+            case R.id.fab:
+                IntentHelper.openPreferredLocationInMap(getActivity(), residence.geolocation);
                 break;
 
         }

@@ -3,6 +3,7 @@ package org.wit.android.helpers;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.provider.ContactsContract;
 import android.support.v4.app.NavUtils;
 
@@ -37,5 +38,18 @@ public class IntentHelper {
     public static void selectContact(Activity parent, int id) {
         Intent selectContactIntent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
         parent.startActivityForResult(selectContactIntent, id);
+    }
+
+    public static void openPreferredLocationInMap(Activity parent, String location) {
+        Uri geoLocation = Uri.parse("geo:0,0?").buildUpon().appendQueryParameter("q", location).build();
+
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(geoLocation);
+
+        if (intent.resolveActivity(parent.getPackageManager()) != null) {
+            parent.startActivity(intent);
+        } else {
+            LogHelpers.info(parent, "Couldn't call " + location + ", no receiving apps installed!");
+        }
     }
 }
