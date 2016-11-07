@@ -52,7 +52,7 @@ public class ResidenceFragment extends Fragment implements TextWatcher,
     private Residence residence;
     private Portfolio portfolio;
 
-    private String emailAddress;
+    private String emailAddress = "";
 
     MyRentApp app;
 
