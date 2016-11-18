@@ -23,7 +23,6 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 
 import org.wit.android.helpers.ContactHelper;
-import org.wit.android.helpers.IntentHelper;
 import org.wit.myrent.R;
 import org.wit.myrent.app.MyRentApp;
 import org.wit.myrent.models.Portfolio;
@@ -35,6 +34,7 @@ import java.util.GregorianCalendar;
 
 import static org.wit.android.helpers.ContactHelper.sendEmail;
 import static org.wit.android.helpers.IntentHelper.navigateUp;
+import static org.wit.android.helpers.IntentHelper.startActivityWithData;
 
 
 public class ResidenceFragment extends Fragment implements TextWatcher,
@@ -181,9 +181,9 @@ public class ResidenceFragment extends Fragment implements TextWatcher,
                 sendEmail(getActivity(), "emailAddress", getString(R.string.residence_report_subject), residence.getResidenceReport(getActivity()));
                 break;
             case R.id.fab:
-                IntentHelper.openPreferredLocationInMap(getActivity(), residence.geolocation);
+                //startActivityWithData(getActivity(), MapActivity.class, EXTRA_RESIDENCE_ID, residence.id); // <--- delete this line
+                startActivityWithData(getActivity(), MapBoxActivity.class, EXTRA_RESIDENCE_ID, residence.id);
                 break;
-
         }
     }
 

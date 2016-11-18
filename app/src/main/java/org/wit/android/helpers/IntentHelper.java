@@ -52,4 +52,10 @@ public class IntentHelper {
             LogHelpers.info(parent, "Couldn't call " + location + ", no receiving apps installed!");
         }
     }
+
+    public static void navigateUp(Activity parent, String extraID, Serializable extraData) {
+        Intent upIntent = NavUtils.getParentActivityIntent(parent);
+        upIntent.putExtra(extraID, extraData);
+        NavUtils.navigateUpTo(parent, upIntent);
+    }
 }

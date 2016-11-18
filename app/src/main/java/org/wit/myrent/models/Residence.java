@@ -23,6 +23,8 @@ public class Residence {
     private static final String JSON_GEOLOCATION = "geolocation";
     private static final String JSON_DATE = "date";
     private static final String JSON_RENTED = "rented";
+    public double zoom;//zoom level of accompanying map
+    private static final String JSON_ZOOM = "zoom"; //map zoom level
 
     public Residence()
     {
@@ -30,6 +32,7 @@ public class Residence {
         id = new Random().nextLong();
         date = new Date().getTime();
         geolocation = "52.253456,-7.187162";
+        zoom = 16.0f;
         tenant = ": none presently";
     }
 
@@ -50,6 +53,7 @@ public class Residence {
         id = json.getLong(JSON_ID);
         geolocation = json.getString(JSON_GEOLOCATION);
         date = json.getLong(JSON_DATE);
+        zoom = json.getDouble(JSON_ZOOM);
         rented = json.getBoolean(JSON_RENTED);
     }
 
@@ -59,6 +63,7 @@ public class Residence {
         json.put(JSON_GEOLOCATION, geolocation);
         json.put(JSON_DATE, date);
         json.put(JSON_RENTED, rented);
+        json.put(JSON_ZOOM, zoom);
         json.put(JSON_TENANT, tenant);
         return json;
     }
